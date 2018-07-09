@@ -1,0 +1,65 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Sesiones Abiertas</span>
+            <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                    <mat-icon>close</mat-icon>
+                </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let token"> {{token.id}} </td>
+            </ng-container>
+
+            <!-- Fecha Creación Column -->
+            <ng-container matColumnDef="fechacreacion">
+                <th mat-header-cell *matHeaderCellDef> Fecha Creación </th>
+                <td mat-cell *matCellDef="let token"> {{formatDate(token.fechacreacion)}} </td>
+            </ng-container>
+
+            <!-- Fecha Creación Column -->
+            <ng-container matColumnDef="habilitado">
+                <th mat-header-cell *matHeaderCellDef> Estado </th>
+                <td mat-cell *matCellDef="let token">
+                    <label style="color: green" *ngIf="token.token == tokenActual">Sesión Actual</label>
+                    <label *ngIf="token.token != tokenActual">Sesión Abierta</label>
+                </td>
+            </ng-container>
+
+            <!-- IP Column -->
+            <ng-container matColumnDef="ip">
+                <th mat-header-cell *matHeaderCellDef> Dirección IP </th>
+                <td mat-cell *matCellDef="let token"> {{token.ip}} </td>
+            </ng-container>
+
+            <!-- Buttons Column -->
+            <ng-container cdkColumnDef="buttons">
+                <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+                <mat-cell *cdkCellDef="let token">
+                    <div fxFlex="row" fxLayoutAlign="end center" *ngIf="token.token != tokenActual">
+                        <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More" (click)="$event.stopPropagation();">
+                                    <mat-icon class="secondary-text">more_vert</mat-icon>
+                                </button>
+                        <mat-menu #moreMenu="matMenu">
+                            <button mat-menu-item aria-label="remove" (click)="cerrarSesion(token.id)">
+                                <mat-icon>delete</mat-icon>
+                                <span>Cerrar Sesión</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                </mat-cell>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+        </table>
+        <mat-paginator [length]="length" [pageSize]="limit" (page)="onPaginateChange($event)">
+        </mat-paginator>
+    </div>
+</div>

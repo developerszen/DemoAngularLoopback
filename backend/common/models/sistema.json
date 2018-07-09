@@ -1,0 +1,57 @@
+{
+  "name": "sistema",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "postgresql": {
+    "schema": "public",
+    "table": "sistemas"
+  },
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "required": true
+    },
+    "sistema": {
+      "type": "string",
+      "required": true
+    },
+    "link": {
+      "type": "string",
+      "required": true
+    },
+    "color": {
+      "type": "string",
+      "required": true
+    },
+    "baja_logica": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "usuariocreacion": {
+      "type": "string"
+    },
+    "fechacreacion": {
+      "type": "date"
+    },
+    "usuariomodificacion": {
+      "type": "string"
+    },
+    "fechamodificacion": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usuariossistemas": {
+      "type": "hasMany",
+      "model": "usuariosistema",
+      "foreignKey": "id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

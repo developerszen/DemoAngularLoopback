@@ -1,0 +1,51 @@
+<div id="login" fxLayout="row" fxLayoutAlign="start">
+    <div id="login-intro" fxFlex fxHide fxShow.gt-xs>
+        <div class="logo" *fuseIfOnDom [@animate]="{value:'*',params:{scale:'0.2'}}">
+            <img src="assets/images/logos/fuse.svg">
+        </div>
+        <div class="title" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',y:'25px'}}">
+            Pushup!
+        </div>
+        <div class="description" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',y:'25px'}}">
+            Codigo demo pushup
+        </div>
+    </div>
+    <div id="login-form-wrapper" fusePerfectScrollbar *fuseIfOnDom [@animate]="{value:'*',params:{delay:'300ms',x:'100%'}}">
+        <div id="login-form">
+            <div class="logo" fxHide.gt-xs>
+                <img src="assets/images/logos/fuse.svg">
+            </div>
+            <div class="title">INGRESO A LA PLATAFORMA</div>
+            <form name="loginForm" [formGroup]="loginForm" novalidate>
+                <mat-form-field>
+                    <input matInput placeholder="Usuario" formControlName="username">
+                    <mat-error *ngIf="loginFormErrors.username.required">
+                        Usuario es obligatorio
+                    </mat-error>
+                    <mat-error *ngIf="loginFormErrors.username.emailDomain">
+                        El usuario debe ser @pushup.com
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="password" placeholder="Password" formControlName="password">
+                    <mat-error *ngIf="loginFormErrors.password.required">
+                        Password es obligatorio
+                    </mat-error>
+                </mat-form-field>
+                <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                    <mat-checkbox class="remember-me" aria-label="Remember Me" (change)="onChkChange()" [checked]="isChecked">
+                        Recordar
+                    </mat-checkbox>
+                    <a class="forgot-password" href="#">
+                        Olvidaste tu password?
+                    </a>
+                </div>
+
+                <button mat-raised-button color="accent" (click)="login()" class="submit-button" aria-label="LOGIN" [disabled]="loginForm.invalid || disabledSubmit">
+                    LOGIN
+                </button>
+                <mat-progress-bar *ngIf="loading" [mode]="mode" [color]='color' mode="buffer"></mat-progress-bar>
+            </form>
+        </div>
+    </div>
+</div>

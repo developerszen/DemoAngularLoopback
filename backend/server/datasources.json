@@ -1,0 +1,11 @@
+{
+    "db": {
+        "host": "",
+        "port": 5432,
+        "database": "db_pushup",
+        "password": "root",
+        "name": "db",
+        "user": "postgres",
+        "connector": "postgresql"
+    }
+}

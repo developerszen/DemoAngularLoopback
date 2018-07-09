@@ -1,0 +1,61 @@
+{
+  "name": "menu",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "postgresql": {
+    "schema": "public",
+    "table": "menus"
+  },
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "required": true
+    },
+    "menu": {
+      "type": "string",
+      "required": true
+    },
+    "id_padre": {
+      "type": "number"
+    },
+    "icono": {
+      "type": "string",
+      "required": true
+    },
+    "indice": {
+      "type": "number"
+    },
+    "path": {
+      "type": "string",
+      "required":true
+    },
+    "tipo": {
+      "type": "string",
+      "required": true
+    },
+    "baja_logica": {
+      "type": "boolean",
+      "required": true
+    },
+    "usuariocreacion": {
+      "type": "string"
+    },
+    "fechacreacion": {
+      "type": "date"
+    },
+    "usuariomodificacion": {
+      "type": "string"
+    },
+    "fechamodificacion": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+  },
+  "acls": [],
+  "methods": {}
+}

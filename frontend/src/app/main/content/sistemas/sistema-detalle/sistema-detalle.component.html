@@ -1,0 +1,99 @@
+<div id="product" class="page-layout carded fullwidth" fusePerfectScrollbar>
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg mat-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header white-fg" fxLayout="row" fxLayoutAlign="space-between center">
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/usuarios'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+                <mat-icon class="logo-icon mr-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    people
+                </mat-icon>
+                <div fxLayout="column" fxLayoutAlign="start start" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">
+                        {{sistema}}
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Usuarios asignados al sistema</span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="10px" fxHide fxShow.gt-xs>
+                <div *ngIf="!enableDelete">
+                    <button mat-raised-button (click)="asignarUsuarios()">
+                        <mat-icon>add</mat-icon> Nuevo
+                    </button>
+                </div>
+                <div *ngIf="enableDelete">
+                    <button mat-raised-button>
+                       <b>({{ cantDelete }})</b> <mat-icon>delete</mat-icon> Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- / HEADER -->
+        <!-- TABLE -->
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+        </mat-form-field>
+        <div class="mat-elevation-z8">
+            <mat-table [dataSource]="dataSource">
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                    <mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="onChangeMaster($event)" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                        </mat-checkbox>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <mat-checkbox (click)="$event.stopPropagation()" (change)="onChange($event,row)" [checked]="selection.isSelected(row)">
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <!-- id column -->
+                <ng-container cdkColumnDef="id">
+                    <mat-header-cell *cdkHeaderCellDef>ID</mat-header-cell>
+                    <mat-cell *cdkCellDef="let usuario">
+                        <p class="text-truncate">{{usuario.id}}</p>
+                    </mat-cell>
+                </ng-container>
+                <!-- username column -->
+                <ng-container cdkColumnDef="username">
+                    <mat-header-cell *cdkHeaderCellDef>Username</mat-header-cell>
+                    <mat-cell *cdkCellDef="let usuario">
+                        <p class="text-truncate">{{usuario.username}}</p>
+                    </mat-cell>
+                </ng-container>
+                <!-- nombre column -->
+                <ng-container cdkColumnDef="nombres">
+                    <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-md>Nombres</mat-header-cell>
+                    <mat-cell *cdkCellDef="let usuario" fxHide fxShow.gt-md>
+                        <p class="nombres text-truncate">
+                            {{usuario.nombres}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+                <!-- apellidos column -->
+                <ng-container cdkColumnDef="apellidos">
+                    <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-md>Apellidos</mat-header-cell>
+                    <mat-cell *cdkCellDef="let usuario" fxHide fxShow.gt-md>
+                        <p class="apellidos text-truncate">
+                            {{usuario.apellidos}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *cdkRowDef="let row; columns: displayedColumns;" (click)="onChange($event,row)">
+                </mat-row>
+            </mat-table>
+            <mat-paginator [length]="paginacion.length" [pageSize]="paginacion.pageSize" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+        <!-- /TABLE -->
+    </div>
+    <!-- / CENTER -->
+</div>

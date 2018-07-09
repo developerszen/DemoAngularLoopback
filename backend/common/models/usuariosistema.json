@@ -1,0 +1,62 @@
+{
+  "name": "usuariosistema",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "postgresql": {
+    "schema": "public",
+    "table": "usuarios_sistemas"
+  },
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "required": true
+    },
+    "fk_usuario": {
+      "type": "number",
+      "required": true
+    },
+    "fk_sistema": {
+      "type": "number",
+      "required": true
+    },
+    "ultimo_acceso": {
+      "type": "date",
+      "required": true
+    },
+    "baja_logica": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "usuariocreacion": {
+      "type": "string"
+    },
+    "fechacreacion": {
+      "type": "date"
+    },
+    "usuariomodificacion": {
+      "type": "string"
+    },
+    "fechamodificacion": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usuarios":{
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignKey": "fk_usuario"
+    },
+    "sistemas": {
+      "type": "belongsTo",
+      "model": "sistema",
+      "foreignKey": "fk_sistema"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

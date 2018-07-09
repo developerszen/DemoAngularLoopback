@@ -1,0 +1,75 @@
+{
+  "name": "usuario",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "postgresql": {
+    "schema": "public",
+    "table": "usuarios"
+  },
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "required": true
+    },
+    "username": {
+      "type": "string",
+      "required": true
+    },
+    "password": {
+      "type": "string",
+      "required": true
+    },
+    "nombres": {
+      "type": "string",
+      "required": true
+    },
+    "apellidos": {
+      "type": "string",
+      "required": true
+    },
+    "logins": {
+      "type": "number",
+      "required": true
+    },
+    "last_login": {
+      "type": "date"
+    },
+    "foto": {
+      "type": "string"
+    },
+    "fk_perfil": {
+      "type": "number",
+      "required":true
+    },
+    "baja_logica": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "usuariocreacion": {
+      "type": "string"
+    },
+    "fechacreacion": {
+      "type": "date"
+    },
+    "usuariomodificacion": {
+      "type": "string"
+    },
+    "fechamodificacion": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usuariosistema": {
+      "type": "hasMany",
+      "model": "usuariosistema",
+      "foreignKey": "id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

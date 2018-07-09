@@ -1,0 +1,78 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Asignación de sistemas</span>
+            <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">selection
+                    </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+
+            <!-- Checkbox Column -->
+            <!-- <ng-container cdkColumnDef="select">
+                <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+                <mat-cell *cdkCellDef="let sistema">
+                    <mat-checkbox [(ngModel)]="checkboxes[sistema.id]" (ngModelChange)="onSelectedChange(sistema.id)">
+                    </mat-checkbox>
+                </mat-cell>
+            </ng-container> -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let sistema"> {{sistema.id}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="sistema">
+                <th mat-header-cell *matHeaderCellDef> Sistema </th>
+                <td mat-cell *matCellDef="let sistema"> {{sistema.sistema}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="link">
+                <th mat-header-cell *matHeaderCellDef> Enlace </th>
+                <td mat-cell *matCellDef="let sistema"> {{sistema.link}} </td>
+            </ng-container>
+
+            <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"> -->
+            <!-- </tr> -->
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+            </tr>
+
+            <!-- <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *cdkRowDef="let sistema; columns: displayedColumns;"
+                    class="contact"
+                    [ngClass]="{'mat-light-blue-50-bg':checkboxes[sistema.id]}"
+                    matRipple>
+            </mat-row> -->
+
+        </table>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="space-between center">
+
+        <button mat-raised-button (click)="dialogRef.close(guardarAsignacionSistemas())" class="save-button mat-accent" aria-label="SAVE">
+            ASIGNAR
+        </button>
+    </div>
+</div>

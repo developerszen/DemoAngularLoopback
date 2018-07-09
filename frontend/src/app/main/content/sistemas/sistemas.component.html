@@ -1,0 +1,89 @@
+<div id="products" class="page-layout carded fullwidth" fusePerfectScrollbar>
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg mat-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header white-fg" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon mr-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    apps
+                </mat-icon>
+                <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Sistemas
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+            <form [formGroup]="form" fxLayout="column">
+                <!-- SEARCH -->
+                <div class="search-input-wrapper mx-24 m-md-0" fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
+                    <label for="search" class="mr-8">
+                    <mat-icon class="secondary-text">buscar</mat-icon>
+                </label>
+                    <mat-form-field floatLabel="never" fxFlex="1 0 auto">
+                        <!-- <input id="search" (keyup)="applyFilter($event.target.value)" matInput placeholder="Buscar"> -->
+                        <input formControlName="search" id="search" matInput placeholder="BUSCAR SISTEMA" (keyup.enter)="applyFilter($event.target.value)">
+                    </mat-form-field>
+                </div>
+                <!-- / SEARCH -->
+            </form>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card mat-white-bg">
+            <mat-table class="products-table" [dataSource]="dataSource" matSort>
+                <!-- ID Column -->
+                <ng-container cdkColumnDef="id">
+                    <mat-header-cell *cdkHeaderCellDef>ID</mat-header-cell>
+                    <mat-cell *cdkCellDef="let sistema">
+                        <p class="text-truncate">{{sistema.id}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Sistema Column -->
+                <ng-container cdkColumnDef="sistema">
+                    <mat-header-cell *cdkHeaderCellDef>Sistema</mat-header-cell>
+                    <mat-cell *cdkCellDef="let sistema">
+                        <p class="text-truncate">{{sistema.sistema}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Category Column -->
+                <ng-container cdkColumnDef="link">
+                    <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-md>Link</mat-header-cell>
+                    <mat-cell *cdkCellDef="let sistema" fxHide fxShow.gt-md>
+                        <p class="text-truncate">
+                            {{sistema.link}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Category Column -->
+                <ng-container cdkColumnDef="color">
+                    <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-md>Color</mat-header-cell>
+                    <mat-cell *cdkCellDef="let sistema" fxHide fxShow.gt-md>
+                        <p class="text-truncate">
+                            {{sistema.color}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+
+                <mat-row *cdkRowDef="let sistema; columns: displayedColumns;" class="product" matRipple [routerLink]="'/sistemas/'+sistema.id+''">
+                </mat-row>
+            </mat-table>
+            <mat-paginator [length]="paginacion.length" [pageSize]="paginacion.pageSize" (page)="onPaginateChange($event)">
+            </mat-paginator>
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

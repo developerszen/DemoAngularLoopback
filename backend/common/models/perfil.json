@@ -1,0 +1,46 @@
+{
+  "name": "perfil",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "postgresql": {
+    "schema": "public",
+    "table": "perfiles"
+  },
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "required": true
+    },
+    "perfil": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "string"
+    },
+    "baja_logica": {
+      "type": "boolean",
+      "required": true
+    },
+    "usuariocreacion": {
+      "type": "string"
+    },
+    "fechacreacion": {
+      "type": "date"
+    },
+    "usuariomodificacion": {
+      "type": "string"
+    },
+    "fechamodificacion": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+  },
+  "acls": [],
+  "methods": {}
+}

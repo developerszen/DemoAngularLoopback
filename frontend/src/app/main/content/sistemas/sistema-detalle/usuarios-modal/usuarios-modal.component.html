@@ -1,0 +1,78 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Asignación de Usuarios</span>
+            <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+        </mat-form-field>
+        <mat-table class="products-table" [dataSource]="dataSource" matSort>
+
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+                <mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="onChangeMaster($event)" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="onChange($event,row)" [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                </mat-cell>
+            </ng-container>
+
+            <!-- ID Column -->
+            <ng-container cdkColumnDef="id">
+                <mat-header-cell *cdkHeaderCellDef>ID</mat-header-cell>
+                <mat-cell *cdkCellDef="let usuario">
+                    <p class="text-truncate">{{usuario.id}}</p>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container cdkColumnDef="username">
+                <mat-header-cell *cdkHeaderCellDef>Username</mat-header-cell>
+                <mat-cell *cdkCellDef="let usuario">
+                    <p class="text-truncate">{{usuario.username}}</p>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Category Column -->
+            <ng-container cdkColumnDef="nombres">
+                <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-md>Nombres</mat-header-cell>
+                <mat-cell *cdkCellDef="let usuario" fxHide fxShow.gt-md>
+                    <p class="nombres text-truncate">
+                        {{usuario.nombres}}
+                    </p>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Category Column -->
+            <ng-container cdkColumnDef="apellidos">
+                <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-md>Apellidos</mat-header-cell>
+                <mat-cell *cdkCellDef="let usuario" fxHide fxShow.gt-md>
+                    <p class="apellidos text-truncate">
+                        {{usuario.apellidos}}
+                    </p>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+
+            <mat-row *cdkRowDef="let usuario; columns: displayedColumns;" class="product" matRipple [routerLink]="'/usuarios/'+usuario.id+''">
+            </mat-row>
+        </mat-table>
+        <mat-paginator [length]="length" [pageSize]="5">
+        </mat-paginator>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-raised-button (click)="dialogRef.close(guardarAsignacionUsuarios())" class="save-button mat-accent" aria-label="SAVE">
+            ASIGNAR
+        </button>
+    </div>
+</div>

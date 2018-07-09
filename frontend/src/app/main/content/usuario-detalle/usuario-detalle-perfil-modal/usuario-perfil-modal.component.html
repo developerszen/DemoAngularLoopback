@@ -1,0 +1,32 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Perfil del Usuario</span>
+            <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <form name="form" [formGroup]="form">
+        <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+            <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                <mat-form-field fxFlex="100">
+                    <mat-select placeholder="Perfil" formControlName="perfil" required>
+                        <mat-option *ngFor="let perfil of perfiles" [value]="perfil.id">
+                            {{ perfil.perfil }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formErrors.perfil.required">
+                        Perfil es obligatorio
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <button mat-raised-button (click)="dialogRef.close(savePerfil())" [disabled]="form.invalid || disabledSubmit" class="save-button mat-accent" aria-label="SAVE">
+            GUARDAR
+        </button>
+        </div>
+    </form>
+</div>

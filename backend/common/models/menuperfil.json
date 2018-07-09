@@ -1,0 +1,47 @@
+{
+  "name": "menuperfil",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "postgresql": {
+    "schema": "public",
+    "table": "menus_perfiles"
+  },
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "required": true
+    },
+    "fk_menu": {
+      "type": "number",
+      "required": true
+    },
+    "fk_perfil": {
+      "type": "number",
+      "required":true
+    },
+    "baja_logica": {
+      "type": "boolean",
+      "required": true
+    },
+    "usuariocreacion": {
+      "type": "string"
+    },
+    "fechacreacion": {
+      "type": "date"
+    },
+    "usuariomodificacion": {
+      "type": "string"
+    },
+    "fechamodificacion": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+  },
+  "acls": [],
+  "methods": {}
+}

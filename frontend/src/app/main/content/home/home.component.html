@@ -1,0 +1,51 @@
+<div id="principal-sistemas" class="page-layout simple" fusePerfectScrollbar>
+
+    <!-- HEADER -->
+    <div class="header mat-accent-bg p-16 p-sm-24" fxLayout="column" fxLayoutAlign="center center">
+
+        <div class="hero-text">
+            <mat-icon class="hero-icon">school</mat-icon>
+            <h1>Bienvenidos al DEMO Pushup</h1>
+            <p>
+
+            </p>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24">
+        <div fxLayout="column" fxLayoutAlign="center">
+            <div class="filters" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+                <mat-form-field class="course-search">
+                    <input matInput placeholder="Buscar un sistema" [(ngModel)]="searchTerm" (input)="filterSistemasByTerm()">
+                </mat-form-field>
+            </div>
+
+            <div class="sistemas" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'50'}" *fuseIfOnDom>
+                <div class="sistema" *ngFor="let sistema of filteredSistemas" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="33" [@animate]="{value:'*',params:{y:'100%'}}">
+                    <div class="sistema-content" fxLayout="column">
+                        <div class="header" fxLayout="row" [style.background]="sistema.color" fxLayoutAlign="center center">
+                            <div class="length" fxLayout="row" fxLayoutAlign="center center">
+                                <mat-icon class="length-icon s-20">access_time</mat-icon>
+                                <div class="min">{{convertTimeAgo(sistema.ultimo_acceso)}}</div>
+                            </div>
+                        </div>
+                        <div class="content" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+                            <div class="h1">{{sistema.sistema}}</div>
+                            <div class="updated">{{sistema.link}}</div>
+                        </div>
+
+                        <div class="footer" fxLayout="row" fxLayoutAlign="center center">
+                            <button (click)="redirectLink(sistema.link)" mat-button color="accent">INICIAR</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="no-sistemas" *ngIf="length === 0">
+                    No hay sistemas encontados
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / CONTENT -->
+</div>
